@@ -27,7 +27,11 @@ const creatorSchema = new mongoose.Schema({
     name: String,
     telegram: String,
     country: String,
-    state: String
+    state: String,
+    instagram: String,
+    tiktok: String,
+    x: String,
+    youtube: String
 });
 
 const Brand = mongoose.model('Brand',companySchema);
@@ -79,6 +83,10 @@ app.post('/register-creator',async(req,res) => {
     const telegram = req.body.telegram;
     const country = req.body.country;
     const state = req.body.state;
+    const instagram = req.body.instagram;
+    const tiktok = req.body.tiktok;
+    const x = req.body.x;
+    const youtube = req.body.youtube;
     let existingUser = await Creator.findOne({email});
     if(existingUser) 
     {
@@ -86,14 +94,8 @@ app.post('/register-creator',async(req,res) => {
             message: "Email already exists"
         });
     }
-    existingUser = await Creator.findOne({telegram});
-    if(existingUser) 
-    {
-        return res.json({
-            message: "Telegram already registered"
-        });
-    }
-    const json = {email,password,name,telegram,country,state};
+    const json = {email,password,name,telegram,country,state,instagram,x,youtube,tiktok};
+    console.log(json);
     const newCreator = new Creator(json);
     await newCreator.save();
     const token = jwt.sign(json,secret);
