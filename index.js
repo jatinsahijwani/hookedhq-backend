@@ -47,14 +47,14 @@ app.post('/register-brand',async(req,res) => {
     const category = req.body.category;
     const type = req.body.type;
     const website = req.body.website;
-    let existingUser = await User.findOne({email});
+    let existingUser = await Brand.findOne({email});
     if(existingUser) 
     {
         return res.json({
             message: "Email already exists"
         });
     }
-    existingUser = await User.findOne({website});
+    existingUser = await Brand.findOne({website});
     if(existingUser) 
     {
         return res.json({
@@ -79,14 +79,14 @@ app.post('/register-creator',async(req,res) => {
     const telegram = req.body.telegram;
     const country = req.body.country;
     const state = req.body.state;
-    let existingUser = await User.findOne({email});
+    let existingUser = await Creator.findOne({email});
     if(existingUser) 
     {
         return res.json({
             message: "Email already exists"
         });
     }
-    existingUser = await User.findOne({telegram});
+    existingUser = await Creator.findOne({telegram});
     if(existingUser) 
     {
         return res.json({
